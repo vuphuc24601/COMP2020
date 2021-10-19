@@ -1,6 +1,5 @@
 import random 
 
-a = 1
 ops = [0, 1, 12, 13]
 v = 0
 
@@ -35,9 +34,10 @@ def shift(b, sa, op):
 def random_case():
     op = random.choice(ops)
     b = random.randint(-2**31, 2**31-1)
+    a = random.randint(-2**31, 2**31-1)
     sa = random.randint(0,31)
     c = shift(b, sa, op)
-    return b, op, sa, c
+    return a, b, op, sa, c, v
 
 
 
@@ -47,12 +47,26 @@ def edge_case():
     for op in ops:
         for sa in sa_list:
             for b in b_list:
+                a = random.randint(-2**31, 2**31-1)
                 c = shift(b, sa, op)
                 writer.write(f'\n{a}\t\t{b}\t\t{op}\t\t{sa}\t\t{c}\t\t{v}')
 
 
 with open('shift32.txt', 'w') as writer:
-    writer.write(f'A[32]\tB[32]\tOp[4]\tSa[5]\tC[32]\tV')
+    text = [
+        "\n#Test cases for shift32\n\n",
+        "#Decimal\n",
+        "#Op in [0, 1, 12, 13]\n",
+        "#Edge Cases:\n", 
+        "#A and B in [-2**31, 2**31-1, 0, 1, -1]\n", 
+        "#Sa in [0, 1, 31]\n",
+        "#Random Cases:\n",
+        "#A and B from -2**31 and 2**31 - 1\n",
+        "#Sa from 0 to 31\n",
+        "#Output V = 0\n"
+        ]
+    writer.writelines(text)
+    writer.write(f'\nA[32]\tB[32]\tOp[4]\tSa[5]\tC[32]\tV\n')
     # generate edge case
     writer.write(f"\n#Edge Cases")
     edge_case()
@@ -60,5 +74,5 @@ with open('shift32.txt', 'w') as writer:
     #generate random cases
     writer.write(f"\n\n#Random Cases")
     for i in range(500):
-        b, op, sa, c = random_case()
+        a, b, op, sa, c, v = random_case()
         writer.write(f'\n{a}\t\t{b}\t\t{op}\t\t{sa}\t\t{c}\t\t{v}')
