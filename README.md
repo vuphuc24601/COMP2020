@@ -13,7 +13,7 @@ Email: 20phuc.vh@vinuni.edu.vn
 
 	
 ## Critical Path Length
-Total: 66
+Total: 66\
 The critical path starts from input Op (opcode) through AddSub32 subcircuit to ouput V (overflow).
 	
 ## Number of Gates
